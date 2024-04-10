@@ -27,26 +27,44 @@ public class Lr31Kovb {
         Scanner scanner = new Scanner(System.in);
         TreeMap<Integer, String> treeMap = new TreeMap<>();
 
-        String exit;
-        do {
-            System.out.println("Write index and value to add in tree: ");
-            int number = scanner.nextInt();
-            String value = scanner.next();
-            putInfo(treeMap, number, value);
-            System.out.println("Write 'С' to continue or 'Q' to quit: ");
-            exit = scanner.next();
-        } while (!exit.equals("Q"));
+        boolean exit = false;
+        while (!exit) {
+            printMenu();
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-
-        System.out.println("All keys in TreeMap:");
-        getAllKeys(treeMap);
-
-        do {
-            System.out.println("Write number of key to get his value: ");
-            int index = scanner.nextInt();
-            getKey(treeMap, index);
-            System.out.println("Write 'С' to continue or 'Q' to quit: ");
-            exit = scanner.next();
-        } while (!exit.equals("Q"));
+            switch (choice) {
+                case 1:
+                    System.out.println("Write index: ");
+                    int number = scanner.nextInt();
+                    System.out.println("Write value: ");
+                    String value = scanner.next();
+                    putInfo(treeMap, number, value);
+                    break;
+                case 2:
+                    System.out.println("Write number of key to get his value: ");
+                    int index = scanner.nextInt();
+                    getKey(treeMap, index);
+                    break;
+                case 3:
+                    System.out.println("All keys");
+                    getAllKeys(treeMap);
+                    break;
+                case 4:
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a number from 1 to 4.");
+            }
+        }
+        scanner.close();
+    }
+    private static void printMenu() {
+        System.out.println("Menu:");
+        System.out.println("1. Add key and value");
+        System.out.println("2. Get certain key and value");
+        System.out.println("3. Get all keys");
+        System.out.println("4. Exit");
     }
 }
