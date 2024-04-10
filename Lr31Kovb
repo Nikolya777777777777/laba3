@@ -1,46 +1,52 @@
 import java.util.*;
 
 public class Lr31Kovb {
-    public static void main(String[] args) {
-        TreeMap<Integer, String> treeMap = new TreeMap<>();
+    public static void putInfo(TreeMap<Integer, String> treeMap, int index, String info){
+        treeMap.put(index, info);
 
-        treeMap.put(1, "One");
-        treeMap.put(2, "Two");
-        treeMap.put(3, "Three");
-        treeMap.put(4, "Four");
-        treeMap.put(5, "Five");
+    }
+    public static void getKey(TreeMap<Integer, String> treeMap, int index){
+        String value = treeMap.get(index);
+        if (value != null) {
+            System.out.println("Value at index " + index + ": " + value);
+        } else {
+            System.out.println("No value found for index " + index);
+        }
+    }
 
+
+    public static void getAllKeys(TreeMap<Integer, String> treeMap){
         Set<Integer> keys = treeMap.keySet();
-        System.out.println("Keys in TreeMap:");
         for (Integer key : keys) {
             System.out.println(key);
         }
     }
-}
 
-//
-//
-//import java.util.TreeMap;
-//
-//public class Lr33Kovb {
-//
-//    public static void main(String[] args) {
-//
-//        TreeMap<Integer, String> treemapNumbers = new TreeMap<Integer, String>();
-//
-//        treemapNumbers.put(2, "Two");
-//        treemapNumbers.put(3, "Three");
-//        treemapNumbers.put(1, "One");
-//
-//        /*
-//         * To get the first key or lowest key from the TreeMap, use
-//         * the firstKey method
-//         */
-//        if(!treemapNumbers.isEmpty()){
-//
-//            //this will return 1
-//            System.out.println( treemapNumbers.firstKey() );
-//            System.out.println( treemapNumbers.lastKey());
-//        }
-//    }
-//}
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        TreeMap<Integer, String> treeMap = new TreeMap<>();
+
+        String exit;
+        do {
+            System.out.println("Write index and value to add in tree: ");
+            int number = scanner.nextInt();
+            String value = scanner.next();
+            putInfo(treeMap, number, value);
+            System.out.println("Write 'С' to continue or 'Q' to quit: ");
+            exit = scanner.next();
+        } while (!exit.equals("Q"));
+
+
+        System.out.println("All keys in TreeMap:");
+        getAllKeys(treeMap);
+
+        do {
+            System.out.println("Write number of key to get his value: ");
+            int index = scanner.nextInt();
+            getKey(treeMap, index);
+            System.out.println("Write 'С' to continue or 'Q' to quit: ");
+            exit = scanner.next();
+        } while (!exit.equals("Q"));
+    }
+}
