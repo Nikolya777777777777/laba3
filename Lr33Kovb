@@ -1,19 +1,31 @@
 import java.util.*;
 
 public class Lr33Kovb {
+    public static void addElement(TreeSet<Integer> treeSet, int value){
+        treeSet.add(value);
+    }
+
+    public static void getFirstElement(TreeSet<Integer> treeSet){
+        Integer firstElement = treeSet.first();
+        System.out.println("First element: " + firstElement);
+    }
+
+    public static void getLastElement(TreeSet<Integer> treeSet){
+        Integer lastElement = treeSet.last();
+        System.out.println("Last element: " + lastElement);
+    }
+    
     public static void main(String[] args) {
         TreeSet<Integer> treeSet = new TreeSet<>();
 
-        treeSet.add(5);
-        treeSet.add(2);
-        treeSet.add(8);
-        treeSet.add(1);
-        treeSet.add(9);
-
-        Integer firstElement = treeSet.first();
-        System.out.println("First element: " + firstElement);
-
-        Integer lastElement = treeSet.last();
-        System.out.println("Last element: " + lastElement);
+        addElement(treeSet,5);
+        addElement(treeSet,2);
+        addElement(treeSet,8);
+        addElement(treeSet,7);
+        addElement(treeSet,6);
+        addElement(treeSet,3);
+        
+        getFirstElement(treeSet);
+        getLastElement(treeSet);
     }
 }
