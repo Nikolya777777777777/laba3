@@ -60,6 +60,16 @@ public class Lr42Kovb {
             tree.root = tree.add(tree.root, randomNumber);
         }
 
+FileWriter writer = new FileWriter("output.txt", true);
+        
+        writer.write("Initial data:\n");
+        for (int i = 0; i < 10; i++) {
+            int randomNumber = random.nextInt(100);
+            tree.root = tree.add(tree.root, randomNumber);
+            writer.write(randomNumber + "\n");
+        }
+
+
         boolean exit = false;
         while (!exit) {
             printMenu();
