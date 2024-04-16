@@ -1,0 +1,98 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+
+public class Lr43Kovb {
+    static class Book {
+        String title;
+        String author;
+        String publisher;
+        int year;
+        float price;
+
+        public Book(String title, String author, String publisher, int year, float price) {
+            this.title = title;
+            this.author = author;
+            this.publisher = publisher;
+            this.year = year;
+            this.price = price;
+        }
+
+        @Override
+        public String toString() {
+            return "Title: " + title + ", Author: " + author + ", Publisher: " + publisher + ", Year: " + year + ", Price: " + price;
+        }
+    }
+
+        public static void main(String[] args) throws IOException {
+            HashMap<Integer, Book> catalog = new HashMap<>();
+            Scanner scanner = new Scanner(System.in);
+            Random random = new Random();
+
+            for (int i = 0; i < 10; i++) {
+                String title = "Book" + (i + 1);
+                String author = "Author" + (i + 1);
+                String publisher = "Publisher" + (i + 1);
+                int year = random.nextInt(324) + 1700;
+                float price = random.nextFloat() * 100;
+                catalog.put(i + 1, new Book(title, author, publisher, year, price));
+            }
+            
+            FileWriter writer = new FileWriter("library_catalog.txt", true);
+
+            System.out.println("Initial Catalog:");
+            for (Map.Entry<Integer, Book> entry : catalog.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+                writer.write(entry.getKey() + ": " + entry.getValue() + "\n");
+            }
+            
+            boolean exit = false;
+            while (!exit) {
+                System.out.println("\nMenu:");
+                System.out.println("1. View Catalog");
+                System.out.println("2. Add Book");
+                System.out.println("3. Exit");
+                System.out.print("Enter your choice: ");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (choice) {
+                    case 1:
+                        System.out.println("Catalog:");
+                        for (Map.Entry<Integer, Book> entry : catalog.entrySet()) {
+                            System.out.println(entry.getKey() + ": " + entry.getValue());
+                        }
+                        break;
+                    case 2:
+                        System.out.print("Enter ISBN of the book to add: ");
+                        int isbnToAdd = scanner.nextInt();
+                        scanner.nextLine();
+                        if (!catalog.containsKey(isbnToAdd)) {
+                            System.out.print("Enter book details:\nTitle: ");
+                            String title = scanner.nextLine();
+                            System.out.print("Author: ");
+                            String author = scanner.nextLine();
+                            System.out.print("Publisher: ");
+                            String publisher = scanner.nextLine();
+                            System.out.print("Year: ");
+                            int year = scanner.nextInt();
+                            System.out.print("Price: ");
+                            float price = scanner.nextFloat();
+                            catalog.put(isbnToAdd, new Book(title, author, publisher, year, price));
+                            System.out.println("Book with ISBN " + isbnToAdd + " added.");
+                        } else {
+                            System.out.println("Book with ISBN " + isbnToAdd + " already exists in the catalog.");
+                        }
+                        break;
+                    case 3:
+                        exit = true;
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please enter a number from 1 to 3.");
+                }
+            }
+            writer.close();
+            scanner.close();
+        }
+    }
+
