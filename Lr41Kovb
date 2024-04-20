@@ -15,22 +15,17 @@ public class Lr41Kovb {
         keyValueMap.put(key, value);
     }
 
-    public void removeValue(String value) {
-        if (keyValueMap.containsValue(value)) {
-            keyValueMap.values().removeIf(val -> val.equals(value));
-            System.out.println("Value '" + value + "' has been successfully removed.");
+    public void removeValue(int key) {
+        if (keyValueMap.containsKey(key)) {
+            keyValueMap.remove(key);
+            System.out.println("Value with key '" + key + "' has been successfully removed.");
         } else {
-            System.out.println("Value '" + value + "' does not exist in the map.");
+            System.out.println("Key '" + key + "' does not exist in the map.");
         }
     }
 
     public String getValue(int key) {
-        for (Integer k : keyValueMap.keySet()) {
-            if (keyValueMap.get(k).equals(key)) {
-                return keyValueMap.get(k);
-            }
-        }
-        return null;
+        return keyValueMap.get(key);
     }
 
     public void print() {
@@ -82,9 +77,9 @@ public class Lr41Kovb {
                     keyValueStore.addValue(key, value);
                     break;
                 case 2:
-                    System.out.println("Write value to remove: ");
-                    value = scanner.nextLine();
-                    keyValueStore.removeValue(value);
+                    System.out.println("Write key to remove value: ");
+                    key = scanner.nextInt();
+                    keyValueStore.removeValue(key);
                     break;
                 case 3:
                     System.out.println("Write which key you want to get the value for: ");
