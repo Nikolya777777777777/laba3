@@ -36,10 +36,8 @@ public class Lr43Kovb {
         }
     }
 
-    private static void removeBook(Scanner scanner, HashMap<Integer, Book> catalog) {
-        System.out.print("Enter ISBN of the book to remove: ");
-        int isbnToRemove = scanner.nextInt();
-        scanner.nextLine();
+    private static void removeBook(HashMap<Integer, Book> catalog, int isbnToRemove) {
+
         if (catalog.containsKey(isbnToRemove)) {
             catalog.remove(isbnToRemove);
             System.out.println("Book with ISBN " + isbnToRemove + " removed from the catalog.");
@@ -60,21 +58,8 @@ public class Lr43Kovb {
         }
     }
 
-    private static void addBook(Scanner scanner, HashMap<Integer, Book> catalog) {
-        System.out.print("Enter ISBN of the book to add: ");
-        int isbnToAdd = scanner.nextInt();
-        scanner.nextLine();
+    private static void addBook(HashMap<Integer, Book> catalog, int isbnToAdd, String title, String author, String publisher, int year, float price) {
         if (!catalog.containsKey(isbnToAdd)) {
-            System.out.print("Enter book details:\nTitle: ");
-            String title = scanner.nextLine();
-            System.out.print("Author: ");
-            String author = scanner.nextLine();
-            System.out.print("Publisher: ");
-            String publisher = scanner.nextLine();
-            System.out.print("Year: ");
-            int year = scanner.nextInt();
-            System.out.print("Price: ");
-            float price = scanner.nextFloat();
             catalog.put(isbnToAdd, new Book(title, author, publisher, year, price));
             System.out.println("Book with ISBN " + isbnToAdd + " added.");
         } else {
@@ -128,12 +113,46 @@ public class Lr43Kovb {
                     viewCatalog(catalog);
                     break;
                 case 2:
-                    addBook(scanner, catalog);
+                    System.out.print("Enter ISBN of the book to add: ");
+                    int isbnToAdd = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Enter book details:\nTitle: ");
+                    String title = scanner.nextLine();
+                    System.out.print("Author: ");
+                    String author = scanner.nextLine();
+                    System.out.print("Publisher: ");
+                    String publisher = scanner.nextLine();
+                    System.out.print("Year: ");
+                    int year = scanner.nextInt();
+                    System.out.print("Price: ");
+                    float price = scanner.nextFloat();
+                    addBook(catalog, isbnToAdd, title, author, publisher, year, price);
                     break;
                 case 3:
-                    removeBook(scanner, catalog);
+                    System.out.print("Enter ISBN of the book to remove: ");
+                    int isbnToRemove = scanner.nextInt();
+                    scanner.nextLine();
+                    removeBook(catalog, isbnToRemove);
                     break;
                 case 4:
+                    System.out.println("Write three criteria you want to sort");
+                    System.out.println("1. Title");
+                    System.out.println("2. Author");
+                    System.out.println("3. Publisher");
+                    System.out.println("4. Year");
+                    System.out.println("5. Price");
+                    System.out.print("Enter your first choice: ");
+                    int choice1 = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Enter your second choice: ");
+                    int choice2 = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Enter your third choice: ");
+                    int choice3 = scanner.nextInt();
+                    scanner.nextLine();
+                    if(choice2 == 1){
+                        sortCatalog(catalog, title);
+                    }
                     sortCatalog(catalog);
                     break;
                 case 5:
