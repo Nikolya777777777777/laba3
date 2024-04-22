@@ -34,6 +34,9 @@ public class Lr43Kovb {
         public  int getYear() {
             return year;
         }
+        public float getPrice() {
+            return price;
+        }
     }
 
     private static void removeBook(HashMap<Integer, Book> catalog, int isbnToRemove) {
@@ -48,15 +51,33 @@ public class Lr43Kovb {
 
     private static void sortCatalog(HashMap<Integer, Book> catalog) {
         List<Book> sortedCatalog = new ArrayList<>(catalog.values());
-        Collections.sort(sortedCatalog, Comparator.comparing(Book::getTitle)
-                .thenComparing(Book::getAuthor)
-                .thenComparingInt(Book::getYear));
 
-        System.out.println("Sorted Catalog:");
+        for (int i = 0; i < sortedCatalog.size() - 1; i++) {
+            for (int j = 0; j < sortedCatalog.size() - i - 1; j++) {
+                Book currentBook = sortedCatalog.get(j);
+                Book nextBook = sortedCatalog.get(j + 1);
+
+                if (currentBook.getYear() > nextBook.getYear()) {
+                    sortedCatalog.set(j, nextBook);
+                    sortedCatalog.set(j + 1, currentBook);
+                }
+                else if (currentBook.getYear() == nextBook.getYear() && currentBook.getPrice() > nextBook.getPrice()) {
+                    sortedCatalog.set(j, nextBook);
+                    sortedCatalog.set(j + 1, currentBook);
+                }
+                else if (currentBook.getYear() == nextBook.getYear() && currentBook.getPrice() == nextBook.getPrice()
+                        && currentBook.getTitle().compareTo(nextBook.getTitle()) > 0) {
+                    sortedCatalog.set(j, nextBook);
+                    sortedCatalog.set(j + 1, currentBook);
+                }
+            }
+        }
+
         for (int i = 0; i < sortedCatalog.size(); i++) {
             System.out.println((i + 1) + ": " + sortedCatalog.get(i));
         }
     }
+
 
     private static void addBook(HashMap<Integer, Book> catalog, int isbnToAdd, String title, String author, String publisher, int year, float price) {
         if (!catalog.containsKey(isbnToAdd)) {
@@ -135,24 +156,6 @@ public class Lr43Kovb {
                     removeBook(catalog, isbnToRemove);
                     break;
                 case 4:
-                    System.out.println("Write three criteria you want to sort");
-                    System.out.println("1. Title");
-                    System.out.println("2. Author");
-                    System.out.println("3. Publisher");
-                    System.out.println("4. Year");
-                    System.out.println("5. Price");
-                    System.out.print("Enter your first choice: ");
-                    int choice1 = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Enter your second choice: ");
-                    int choice2 = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Enter your third choice: ");
-                    int choice3 = scanner.nextInt();
-                    scanner.nextLine();
-                    if(choice2 == 1){
-                        sortCatalog(catalog, title);
-                    }
                     sortCatalog(catalog);
                     break;
                 case 5:
